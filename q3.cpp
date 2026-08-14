@@ -1,36 +1,21 @@
-
-#include <iostream>
+#include<iostream>
 using namespace std;
-
-class Temperature
-{
-private:
-    float celsius, fahrenheit;
-
-public:
-    void input()
-    {
-        cout << "Enter Temperature in Celsius: ";
-        cin >> celsius;
+int main(){
+    int n,even = 0, odd =0;
+    cout<<"enter the no of elements";
+    cin>>n;
+    int *arr = new int[n];
+    cout<<"Enter the elements of an array:";
+    for(int i=1;i<n;i++){
+        cin>>arr[i];
+        if(arr[i]%2==0)
+        even++;
+        else
+         odd++;
     }
-
-    void convert()
-    {
-        fahrenheit = (9.0 / 5.0) * celsius + 32;
-    }
-
-    void display()
-    {
-        cout << "Celsius = " << celsius << endl;
-        cout << "Fahrenheit = " << fahrenheit << endl;
-    }
-};
-
-int main()
-{
-    Temperature t;
-    t.input();
-    t.convert();
-    t.display();
+    cout<<"the no of even elements:"<<even<<endl;
+    cout<<"the no of odd elements :"<<odd<<endl;
+    delete[] arr;
     return 0;
+
 }

@@ -1,50 +1,36 @@
-#include <iostream>
+#include<iostream>
+#include<string>
 using namespace std;
+class book{
+    int bookID,price;
+    string author,bookTitle;
+    public:
+    void input(){
+        cout<<"Enter the book ID:";
+        cin>>bookID;
+        cout<<"Enter the price:";
+        cin>>price;
+        
+        cout<<"enter the booktitle:";
+        getline(cin,bookTitle);
+        cout<<"Enter the author name:";
+        getline(cin,author);
 
-class MobileRecharge
-{
-private:
-    string mobileNo, customerName;
-    float balance, recharge;
-
-public:
-    void input()
-    {
-        cout << "Enter Mobile Number: ";
-        cin >> mobileNo;
-        cout << "Enter Customer Name: ";
-        cin >> customerName;
-        cout << "Enter Current Balance: ";
-        cin >> balance;
     }
+    void display(){
+        cout<<"----book details----"<<endl;
+        cout<<"Book ID :"<<bookID<<endl;
+        cout<<"the price of book:"<<price<<endl;
+        cout<<"author :"<<author<<endl;
+        cout<<"Booktitle:"<<bookTitle<<endl;
 
-    void rechargeBalance()
-    {
-        cout << "Enter Recharge Amount: ";
-        cin >> recharge;
 
-        if (recharge <= balance)
-        {
-            balance = balance - recharge;
-            cout << "Recharge Successful!\n";
-        }
-        else
-        {
-            cout << "Insufficient Balance!\n";
-        }
-    }
-
-    void display()
-    {
-        cout << "Updated Balance = " << balance << endl;
     }
 };
-
-int main()
-{
-    MobileRecharge m;
-    m.input();
-    m.rechargeBalance();
-    m.display();
+int main(){
+    book *b =new book;
+    b->input();
+    b->display();
+    delete b;
     return 0;
 }

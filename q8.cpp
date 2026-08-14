@@ -1,41 +1,86 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
-class hostelfee{
-    string student_name;
-    int id,months;
-    float monthyfee,totalfee;
-    char delayed;
-    public:
-    void input(){
-        cout<<"enter the student_name:";
-        cin>>student_name;
-        cout<<" enter id :";
-        cin>>id;
-        cout<<"enter the no. of months";
-        cin>>months;
-        cout<<"payment delayed? (y/n)";
-        cin>>delayed;
 
+void accept(int *arr, int n)
+{
+    cout << "Enter " << n << " elements:\n";
 
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
     }
-    void calculate(){
-        totalfee = monthyfee * months;
-        if(delayed == 'y'|| delayed == 'n')
-        totalfee+=500;
+}
 
-        
-    }
-    void display(){
-        cout<<"\n students name"<<student_name<<endl;
-        cout<<"\n hostel id"<<id<<endl;
-        cout<<"\n months "<<months<<endl;
+int sum(int *arr, int n)
+{
+    int total = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        total += arr[i];
     }
 
-};
-    int main(){
-        hostelfee f;
-        f.input();
-        f.calculate();
-        f.display();
-        return 0;
+    return total;
+}
+
+int smallest(int *arr, int n)
+{
+    int min = arr[0];
+
+    for (int i = 1; i < n; i++)
+    {
+        if (arr[i] < min)
+            min = arr[i];
     }
+
+    return min;
+}
+
+
+int largest(int *arr, int n)
+{
+    int max = arr[0];
+
+    for (int i = 1; i < n; i++)
+    {
+        if (arr[i] > max)
+            max = arr[i];
+    }
+
+    return max;
+}
+
+void display(int *arr, int n)
+{
+    cout << "\nArray elements: ";
+
+    for (int i = 0; i < n; i++)
+    {
+        cout << arr[i] << " ";
+    }
+
+    cout << endl;
+}
+
+int main()
+{
+    int n;
+
+    cout << "Enter size of array: ";
+    cin >> n;
+
+    int *arr = new int[n];
+
+   
+    accept(arr, n);
+
+    display(arr, n);
+
+    cout << "Sum = " << sum(arr, n) << endl;
+    cout << "Smallest element = " << smallest(arr, n) << endl;
+    cout << "Largest element = " << largest(arr, n) << endl;
+
+    delete[] arr;
+
+    return 0;
+}

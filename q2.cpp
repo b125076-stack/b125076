@@ -1,26 +1,20 @@
 #include<iostream>
-using namespace std; 
-
-    class square 
+using namespace std;
+int main(){
+    int n;
+    cout<<"enter the no. of integers";
+    cin >> n;
+    int  *arr = new int[n];
+    cout<<"enter the elements:"<<n<<endl;
+    for(int i=1;i<=n;i++)
     {
-        float side;
-        public:
-        void input()
-        {
-            cout<< " enter the side";
-            cin>> side;
+        cin>>arr[i];
 
-        }
-        void display()
-        {
-            cout<<" the area ="<< side * side<< endl;
-            cout<<" perimeter ="<< 4*side<< endl;
-
-        }
-    };
-    int main(){
-        square s;
-        s.input();
-        s.display();
-        return 0;
     }
+    cout<<"the reverse of an array is :";
+    for(int i=n;i>=1;i--){
+        cout<<arr[i]<<" "<<endl;
+    }
+    delete[] arr;
+    return 0;
+}

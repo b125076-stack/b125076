@@ -1,47 +1,31 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
+int main (){
+    int n, key;
+  
+    cout<<"enter the no. of elements:";
+    cin>>n;
+    int *arr = new int[n];
+    cout<<"elements of an array:";
+    for(int i=0;i<n;i++)
+        cin>>arr[i];
 
-class HotelRoom
-{
-private:
-    int roomNo, days;
-    string guestName;
-    float costPerDay, totalRent;
+    cout<<"enter the elements to search:";
+    cin>>key;
 
-public:
-    void input()
-    {
-        cout << "Enter Room Number: ";
-        cin >> roomNo;
-        cout << "Enter Guest Name: ";
-        cin >> guestName;
-        cout << "Enter Number of Days: ";
-        cin >> days;
-        cout << "Enter Cost Per Day: ";
-        cin >> costPerDay;
+    bool found = false;
+
+    for(int i=0;i<n;i++){
+        if(arr[i]==key){
+            cout<<"elements found at position:" << i;   
+            found = true; 
+        }
     }
 
-    void calculate()
-    {
-        totalRent = days * costPerDay;
-    }
+    if (!found)
+        cout << "element not found";
 
-    void display()
-    {
-        cout << "\nBooking Details\n";
-        cout << "Room Number : " << roomNo << endl;
-        cout << "Guest Name : " << guestName << endl;
-        cout << "Days Stayed : " << days << endl;
-        cout << "Cost Per Day : " << costPerDay << endl;
-        cout << "Total Rent : " << totalRent << endl;
-    }
-};
+    delete[] arr; 
 
-int main()
-{
-    HotelRoom h;
-    h.input();
-    h.calculate();
-    h.display();
     return 0;
 }

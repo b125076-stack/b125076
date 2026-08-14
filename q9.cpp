@@ -1,44 +1,79 @@
-#include<iostream>
+#include <iostream>
+#include <string>
 using namespace std;
 
-    class cricketplayer{
-        string name;
-        int matchs,runs;
-        float avg;
-        public:
-        void input (){
-            cout<<" enter the player:";
-            cin>>name;
-            cout<<"enter the run of player:";
-            cin>>runs;
-            cout<<"enter the no of matchs player";
-            cin>>matchs;
+class Employee
+{
+private:
+    int employeeID;
+    string employeeName;
+    float salary;
 
-        }
-        void calculate(){
-            avg=(float)runs/matchs;
+public:
+    void input()
+    {
+        cout << "Enter Employee ID: ";
+        cin >> employeeID;
 
-        }
-        void display()
-        {
-            cout<<"batting_avg"<< avg<<endl;
-            if(avg>=50)
-             cout<<"per: excellent";
-            else if(avg>=35)
-            cout<<"per:good";
-            else if(avg>=20)
-            cout<<"per:average";
-            else
-            cout<<"per:poor";
-        }
+        cin.ignore();
 
+        cout << "Enter Employee Name: ";
+        getline(cin, employeeName);
 
-        
-    };
-    int main(){
-        cricketplayer c ;
-        c.input();
-        c.calculate();
-        c.display();
-            return 0;
+        cout << "Enter Salary: ";
+        cin >> salary;
     }
+
+    void display()
+    {
+        cout << "\nEmployee ID   : " << employeeID;
+        cout << "\nEmployee Name : " << employeeName;
+        cout << "\nSalary        : " << salary << endl;
+    }
+
+    float getSalary()
+    {
+        return salary;
+    }
+};
+
+int main()
+{
+    int n;
+    float totalSalary = 0;
+    int highestIndex = 0;
+
+    cout << "Enter number of employees: ";
+    cin >> n;
+
+    Employee *emp = new Employee[n];
+
+    for (int i = 0; i < n; i++)
+    {
+        cout << "\nEnter details of Employee " << i + 1 << ":\n";
+        emp[i].input();
+    }
+
+    cout << "\n========== EMPLOYEE DETAILS ==========\n";
+
+    for (int i = 0; i < n; i++)
+    {
+        emp[i].display();
+
+        totalSalary += emp[i].getSalary();
+
+        if (emp[i].getSalary() > emp[highestIndex].getSalary())
+        {
+            highestIndex = i;
+        }
+    }
+
+    cout << "\n========== HIGHEST SALARY ==========\n";
+    emp[highestIndex].display();
+
+    cout << "\nAverage Salary = " << totalSalary / n << endl;
+
+    delete[] emp;
+
+    return 0;
+}

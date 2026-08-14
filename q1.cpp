@@ -1,32 +1,25 @@
 #include<iostream>
 using namespace std;
-class car {
-
-    string brand;
-    int car_no;
-    int yearmodel;
-    public:
-    void input(){
-        cout<<" enter the carnumber";
-        cin >> car_no;
-        cout<<"enter the brandname";
-        cin >> brand;
-        cout<<" enter the yearmodel";
-        cin >> yearmodel;
-
-    }
-    void display()
-{       cout<<" !! car details !!";
-        cout<<" the carnumber is "<< car_no<<endl;
-        cout<<" the brand of car is"<<brand  <<endl;
-        cout<<" the yearmodel"<<yearmodel<<endl;
-
-    
-    }
-};
 int main(){
-    car c;
-    c.input();
-    c.display();
+    int *a= new int;
+    int *b= new int;
+    cout<<"ENter two integers";
+    cin>>*a>>*b;
+    cout<<"sum ="<<*a+*b<<endl;
+    cout<<"difference = "<<*a-*b<<endl;
+    cout<<"product = "<<*a**b<<endl;
+    if(b!=0){
+        cout<<"division"<<(*a/ *b)<<endl;
+
+    }
+    else{
+        cout<<"not define";
+
+    }
+
+    delete a;
+    delete b;
+
     return 0;
+    
 }

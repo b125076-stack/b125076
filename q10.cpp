@@ -1,46 +1,72 @@
 #include <iostream>
 using namespace std;
 
-class WaterBill
-{
-private:
-    int consumerNo, litres;
-    string consumerName;
-    float bill;
-
-public:
-    void input()
-    {
-        cout << "Enter Consumer Number: ";
-        cin >> consumerNo;
-        cout << "Enter Consumer Name: ";
-        cin >> consumerName;
-        cout << "Enter Water Consumption (Litres): ";
-        cin >> litres;
-    }
-
-    void calculate()
-    {
-        if (litres <= 500)
-            bill = litres * 2;
-        else if (litres <= 1000)
-            bill = (500 * 2) + ((litres - 500) * 3);
-        else
-            bill = (500 * 2) + (500 * 3) + ((litres - 1000) * 5);
-    }
-
-    void display()
-    {
-        cout << "\nConsumer Name : " << consumerName;
-        cout << "\nWater Bill : Rs. " << bill;
-    }
-};
-
 int main()
 {
-    WaterBill w;
-    w.input();
-    w.calculate();
-    w.display();
+    int m, n;
+
+    cout << "Enter number of rows and columns: ";
+    cin >> m >> n;
+
+    int *A = new int[m];
+    int *B = new int[m];
+    int *C = new int[m];
+
+    for (int i = 0; i < m; i++)
+    {
+        A[i] = new int[n];
+        B[i] = new int[n];
+        C[i] = new int[n];
+    }
+
+    cout << "\nEnter elements of Matrix A:\n";
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cin >> A[i][j];
+        }
+    }
+
+    cout << "\nEnter elements of Matrix B:\n";
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cin >> B[i][j];
+        }
+    }
+
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            C[i][j] = A[i][j] + B[i][j];
+        }
+    }
+
+    cout << "\nResultant Matrix (A + B):\n";
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cout << C[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    
+    for (int i = 0; i < m; i++)
+    {
+        delete[] A[i];
+        delete[] B[i];
+        delete[] C[i];
+    }
+
+    
+    delete[] A;
+    delete[] B;
+    delete[] C;
+
     return 0;
 }
