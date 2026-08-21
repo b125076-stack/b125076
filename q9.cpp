@@ -1,79 +1,82 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
-class Employee
+class DigitalWallet
 {
 private:
-    int employeeID;
-    string employeeName;
-    float salary;
+    string userName;
+    double walletBalance;
+    string walletStatus;
 
 public:
-    void input()
+    DigitalWallet(string name, double balance)
     {
-        cout << "Enter Employee ID: ";
-        cin >> employeeID;
-
-        cin.ignore();
-
-        cout << "Enter Employee Name: ";
-        getline(cin, employeeName);
-
-        cout << "Enter Salary: ";
-        cin >> salary;
+        userName = name;
+        walletBalance = balance;
+        walletStatus = "Active";
     }
 
-    void display()
+    friend class WalletManager;
+};
+
+class WalletManager
+{
+public:
+    void displayWallet(DigitalWallet &w)
     {
-        cout << "\nEmployee ID   : " << employeeID;
-        cout << "\nEmployee Name : " << employeeName;
-        cout << "\nSalary        : " << salary << endl;
+        cout << "User Name: " << w.userName << endl;
+        cout << "Wallet Balance: " << w.walletBalance << endl;
+        cout << "Wallet Status: " << w.walletStatus << endl;
     }
 
-    float getSalary()
+    void addMoney(DigitalWallet &w, double amount)
     {
-        return salary;
+        w.walletBalance += amount;
+        cout << "Money added successfully." << endl;
+    }
+
+    void deductMoney(DigitalWallet &w, double amount)
+    {
+        if (w.walletBalance >= amount)
+        {
+            w.walletBalance -= amount;
+            cout << "Money deducted successfully." << endl;
+        }
+        else
+        {
+            cout << "Insufficient balance." << endl;
+        }
+    }
+
+    void disableWallet(DigitalWallet &w)
+    {
+        w.walletStatus = "Disabled";
+        cout << "Wallet disabled." << endl;
+    }
+
+    void displayStatus(DigitalWallet &w)
+    {
+        cout << "Current Wallet Status: "
+             << w.walletStatus << endl;
     }
 };
 
 int main()
 {
-    int n;
-    float totalSalary = 0;
-    int highestIndex = 0;
+    DigitalWallet wallet("Nishant", 1000);
+    WalletManager manager;
 
-    cout << "Enter number of employees: ";
-    cin >> n;
+    manager.displayWallet(wallet);
 
-    Employee *emp = new Employee[n];
+    manager.addMoney(wallet, 500);
 
-    for (int i = 0; i < n; i++)
-    {
-        cout << "\nEnter details of Employee " << i + 1 << ":\n";
-        emp[i].input();
-    }
+    manager.deductMoney(wallet, 300);
 
-    cout << "\n========== EMPLOYEE DETAILS ==========\n";
+    manager.displayWallet(wallet);
 
-    for (int i = 0; i < n; i++)
-    {
-        emp[i].display();
+    manager.disableWallet(wallet);
 
-        totalSalary += emp[i].getSalary();
-
-        if (emp[i].getSalary() > emp[highestIndex].getSalary())
-        {
-            highestIndex = i;
-        }
-    }
-
-    cout << "\n========== HIGHEST SALARY ==========\n";
-    emp[highestIndex].display();
-
-    cout << "\nAverage Salary = " << totalSalary / n << endl;
-
-    delete[] emp;
+    manager.displayStatus(wallet);
 
     return 0;
 }

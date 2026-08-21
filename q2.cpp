@@ -1,20 +1,44 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
-int main(){
-    int n;
-    cout<<"enter the no. of integers";
-    cin >> n;
-    int  *arr = new int[n];
-    cout<<"enter the elements:"<<n<<endl;
-    for(int i=1;i<=n;i++)
-    {
-        cin>>arr[i];
 
+class UserAccount
+{
+private:
+    string username;
+    int loginAttempts;
+    string accountStatus;
+
+public:
+    UserAccount(string name, int attempts, string status)
+    {
+        username = name;
+        loginAttempts = attempts;
+        accountStatus = status;
     }
-    cout<<"the reverse of an array is :";
-    for(int i=n;i>=1;i--){
-        cout<<arr[i]<<" "<<endl;
+
+    friend void checkAccount(UserAccount u);
+};
+
+void checkAccount(UserAccount u)
+{
+    cout << "Username: " << u.username << endl;
+    cout << "Login Attempts: " << u.loginAttempts << endl;
+
+    if (u.loginAttempts >= 3)
+    {
+        cout << "Account Status: Account Locked" << endl;
     }
-    delete[] arr;
+    else
+    {
+        cout << "Account Status: Account Active" << endl;
+    }
+}
+
+int main()
+{
+    UserAccount u("Nishant", 2, "Active");
+
+    checkAccount(u);
+
     return 0;
 }

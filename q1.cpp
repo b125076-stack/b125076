@@ -1,25 +1,43 @@
 #include<iostream>
 using namespace std;
-int main(){
-    int *a= new int;
-    int *b= new int;
-    cout<<"ENter two integers";
-    cin>>*a>>*b;
-    cout<<"sum ="<<*a+*b<<endl;
-    cout<<"difference = "<<*a-*b<<endl;
-    cout<<"product = "<<*a**b<<endl;
-    if(b!=0){
-        cout<<"division"<<(*a/ *b)<<endl;
 
+class Weather
+{
+private:
+    string cityName;
+    float temperature;
+    string weatherCondition;
+
+public:
+    Weather(string city, float temp, string condition)
+    {
+        cityName = city;
+        temperature = temp;
+        weatherCondition = condition;
     }
-    else{
-        cout<<"not define";
 
-    }
+    friend void generateReport(Weather w);
+};
 
-    delete a;
-    delete b;
+void generateReport(Weather w)
+{
+    cout << "City: " << w.cityName << endl;
+    cout << "Temperature: " << w.temperature << " C" << endl;
+    cout << "Weather Condition: " << w.weatherCondition << endl;
+
+    if (w.temperature > 35)
+        cout << "Classification: Very Hot" << endl;
+    else if (w.temperature >= 20)
+        cout << "Classification: Pleasant" << endl;
+    else
+        cout << "Classification: Cool" << endl;
+}
+
+int main()
+{
+    Weather w("udaipur", 29, "Sunny");
+
+    generateReport(w);
 
     return 0;
-    
 }

@@ -1,48 +1,80 @@
-#include<iostream>
-#include<string>
-using namepace std;
-class product{
+#include <iostream>
+using namespace std;
 
-    int productId,quality;
-    string productname;
-    float price;
-    public:
-        void input(){
-            cout<<"enter the productId:"
-            cin>>product;
-            cout<<"product name:";
-          getline(cin,productname);
-            cout<<"Enter the price: ";
-            cin>>price;
-            cout<<"Enter the quality:";
-            cin>>quality;
+class Printer
+{
+private:
+    string printerName;
+    int pagesPrinted;
+    int inkLevel;
+    bool powerStatus;
 
-        }
-        void display(){
-            cout<<"product id:"<<productId;
-            cout<<"product name:"<<productname;
-            cout<<"price"<<price;
-            cout<<"quantity"<<quantity<<endl;
-            cout<<"total cost"<<price*quantity<<endl;
-        }
-        };
-       
-            int main(){
-            cout<<"enter the name of product:";
-            cin>>n;
-            product *p=new product [n];
-            for(int i=0;i<n;i++)
-            {
-                cout<<"\n enter the details of product:"<<i<<endl;
-                p[i].input();
-            }
-            cout<<"\n======product details"<<i<<endl;
-            for(int i=0;i<n;i++){
-                cout<<"\n product"<<i+1<<endl;
-            }
-            p[i].display();
-            return 0;
+public:
+    Printer(string name)
+    {
+        printerName = name;
+        pagesPrinted = 0;
+        inkLevel = 100;
+        powerStatus = false;
+    }
 
-        
+    friend class PrinterManager;
+};
 
-        }
+class PrinterManager
+{
+public:
+
+    void displayPrinterInfo(Printer &p)
+    {
+        cout << "Printer Name: " << p.printerName << endl;
+        cout << "Pages Printed: " << p.pagesPrinted << endl;
+        cout << "Ink Level: " << p.inkLevel << "%" << endl;
+
+        if (p.powerStatus)
+            cout << "Power Status: ON" << endl;
+        else
+            cout << "Power Status: OFF" << endl;
+    }
+
+    void turnOn(Printer &p)
+    {
+        p.powerStatus = true;
+        cout << "Printer turned ON." << endl;
+    }
+
+    void turnOff(Printer &p)
+    {
+        p.powerStatus = false;
+        cout << "Printer turned OFF." << endl;
+    }
+
+    void checkInkLevel(Printer &p)
+    {
+        cout << "Ink Level: " << p.inkLevel << "%" << endl;
+    }
+
+    void resetPageCount(Printer &p)
+    {
+        p.pagesPrinted = 0;
+        cout << "Page count reset successfully." << endl;
+    }
+};
+
+int main()
+{
+    Printer p("HP LaserJet");
+    PrinterManager manager;
+
+    manager.displayPrinterInfo(p);
+
+    manager.turnOn(p);
+
+    manager.checkInkLevel(p);
+
+    manager.resetPageCount(p);
+
+    manager.turnOff(p);
+
+    return 0;
+}

@@ -1,31 +1,43 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
-int main (){
-    int n, key;
-  
-    cout<<"enter the no. of elements:";
-    cin>>n;
-    int *arr = new int[n];
-    cout<<"elements of an array:";
-    for(int i=0;i<n;i++)
-        cin>>arr[i];
 
-    cout<<"enter the elements to search:";
-    cin>>key;
+class ElectricityMeter
+{
+private:
+    int meterNumber;
+    string consumerName;
+    float unitsConsumed;
 
-    bool found = false;
-
-    for(int i=0;i<n;i++){
-        if(arr[i]==key){
-            cout<<"elements found at position:" << i;   
-            found = true; 
-        }
+public:
+    ElectricityMeter(int meter, string name, float units)
+    {
+        meterNumber = meter;
+        consumerName = name;
+        unitsConsumed = units;
     }
 
-    if (!found)
-        cout << "element not found";
+    friend void checkUsage(ElectricityMeter e);
+};
 
-    delete[] arr; 
+void checkUsage(ElectricityMeter e)
+{
+    cout << "Meter Number: " << e.meterNumber << endl;
+    cout << "Consumer Name: " << e.consumerName << endl;
+    cout << "Units Consumed: " << e.unitsConsumed << endl;
+
+    if (e.unitsConsumed < 100)
+        cout << "Usage Category: Low Usage" << endl;
+    else if (e.unitsConsumed <= 300)
+        cout << "Usage Category: Moderate Usage" << endl;
+    else
+        cout << "Usage Category: High Usage" << endl;
+}
+
+int main()
+{
+    ElectricityMeter e(101, "Nishant", 100);
+
+    checkUsage(e);
 
     return 0;
 }

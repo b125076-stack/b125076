@@ -1,86 +1,78 @@
 #include <iostream>
 using namespace std;
 
-void accept(int *arr, int n)
+class VehicleService
 {
-    cout << "Enter " << n << " elements:\n";
+private:
+    string vehicleNumber;
+    string ownerName;
+    string serviceStatus;
+    int lastServiceKilometres;
 
-    for (int i = 0; i < n; i++)
+public:
+    VehicleService(string number, string owner, int km)
     {
-        cin >> arr[i];
-    }
-}
-
-int sum(int *arr, int n)
-{
-    int total = 0;
-
-    for (int i = 0; i < n; i++)
-    {
-        total += arr[i];
+        vehicleNumber = number;
+        ownerName = owner;
+        serviceStatus = "Pending";
+        lastServiceKilometres = km;
     }
 
-    return total;
-}
+    friend class ServiceManager;
+};
 
-int smallest(int *arr, int n)
+class ServiceManager
 {
-    int min = arr[0];
-
-    for (int i = 1; i < n; i++)
+public:
+    void displayInformation(VehicleService &v)
     {
-        if (arr[i] < min)
-            min = arr[i];
+        cout << "Vehicle Number: " << v.vehicleNumber << endl;
+        cout << "Owner Name: " << v.ownerName << endl;
+        cout << "Service Status: " << v.serviceStatus << endl;
+        cout << "Last Service Kilometres: "
+             << v.lastServiceKilometres << " km" << endl;
     }
 
-    return min;
-}
-
-
-int largest(int *arr, int n)
-{
-    int max = arr[0];
-
-    for (int i = 1; i < n; i++)
+    void markServiceCompleted(VehicleService &v)
     {
-        if (arr[i] > max)
-            max = arr[i];
+        v.serviceStatus = "Completed";
+        cout << "Service marked as completed." << endl;
     }
 
-    return max;
-}
-
-void display(int *arr, int n)
-{
-    cout << "\nArray elements: ";
-
-    for (int i = 0; i < n; i++)
+    void updateServiceKilometres(VehicleService &v, int km)
     {
-        cout << arr[i] << " ";
+        v.lastServiceKilometres = km;
+        cout << "Service kilometres updated." << endl;
     }
 
-    cout << endl;
-}
+    void checkServiceRequired(VehicleService &v, int currentKm)
+    {
+        if (v.serviceStatus == "Pending" &&
+            currentKm - v.lastServiceKilometres >= 5000)
+        {
+            cout << "Service is REQUIRED." << endl;
+        }
+        else
+        {
+            cout << "Service is NOT required." << endl;
+        }
+    }
+};
 
 int main()
 {
-    int n;
+    VehicleService v("MH12AB1234", "Nishant", 10000);
+    ServiceManager manager;
 
-    cout << "Enter size of array: ";
-    cin >> n;
+    manager.displayInformation(v);
 
-    int *arr = new int[n];
+    manager.checkServiceRequired(v, 16000);
 
-   
-    accept(arr, n);
+    manager.markServiceCompleted(v);
 
-    display(arr, n);
+    manager.updateServiceKilometres(v, 16000);
 
-    cout << "Sum = " << sum(arr, n) << endl;
-    cout << "Smallest element = " << smallest(arr, n) << endl;
-    cout << "Largest element = " << largest(arr, n) << endl;
-
-    delete[] arr;
+    manager.displayInformation(v);
 
     return 0;
 }
