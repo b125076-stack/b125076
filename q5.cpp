@@ -1,41 +1,22 @@
 #include <iostream>
 using namespace std;
 
-class EventParticipant
-{
-private:
-    string participantName;
-    int age;
-    string registrationStatus;
+void updateVisitors(int *count) {
+    int newVisitors;
+    cout << "Enter number of newly arrived visitors: ";
+    cin >> newVisitors;
 
-public:
-    EventParticipant(string name, int a, string status)
-    {
-        participantName = name;
-        age = a;
-        registrationStatus = status;
-    }
-
-    friend void verifyParticipant(EventParticipant p);
-};
-
-void verifyParticipant(EventParticipant p)
-{
-    cout << "Participant Name: " << p.participantName << endl;
-    cout << "Age: " << p.age << endl;
-    cout << "Registration Status: " << p.registrationStatus << endl;
-
-    if (p.age >= 18 && p.registrationStatus == "Active")
-        cout << "Eligibility: Eligible" << endl;
-    else
-        cout << "Eligibility: Not Eligible" << endl;
+    *count = *count + newVisitors;
 }
 
-int main()
-{
-    EventParticipant p("Nishant", 19, "Active");
+int main() {
+    int visitors = 46;
 
-    verifyParticipant(p);
+    cout << "Visitor count before update: " << visitors << endl;
+
+    updateVisitors(&visitors);
+
+    cout << "Visitor count after update: " << visitors << endl;
 
     return 0;
 }

@@ -1,43 +1,36 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
+int main(){
+    int seats[6] ={101 , 102 ,103, 104 ,105 ,106};
+    int *ptr = seats;
+    int position, newseatnumber; 
 
-class ElectricityMeter
-{
-private:
-    int meterNumber;
-    string consumerName;
-    float unitsConsumed;
+    cout<<" seat number before update :\n";
+    for(int i=0; i<7;i++){
+        cout<< *(ptr + i)<<" ";
 
-public:
-    ElectricityMeter(int meter, string name, float units)
-    {
-        meterNumber = meter;
-        consumerName = name;
-        unitsConsumed = units;
     }
+    cout<<"\n \n enter the position to update :";
+    cin>>position;
 
-    friend void checkUsage(ElectricityMeter e);
-};
+    cout<<" Enter the new seat : ";
+    cin>> newseatnumber;
 
-void checkUsage(ElectricityMeter e)
-{
-    cout << "Meter Number: " << e.meterNumber << endl;
-    cout << "Consumer Name: " << e.consumerName << endl;
-    cout << "Units Consumed: " << e.unitsConsumed << endl;
+    if(position>=1 && position<=6){
+        *(ptr+(position-1))= newseatnumber;
 
-    if (e.unitsConsumed < 100)
-        cout << "Usage Category: Low Usage" << endl;
-    else if (e.unitsConsumed <= 300)
-        cout << "Usage Category: Moderate Usage" << endl;
-    else
-        cout << "Usage Category: High Usage" << endl;
-}
 
-int main()
-{
-    ElectricityMeter e(101, "Nishant", 100);
+    }else{
+        cout<<" invalid position : "<<endl;
+        return 0;
 
-    checkUsage(e);
+    }
+    cout<<" \n no of seats after updation :\n";
+    
+    for(int i=0;i<7;i++){
+        cout<<*(ptr+i)<< " ";
 
+    }
     return 0;
+
 }

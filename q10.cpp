@@ -1,83 +1,41 @@
 #include <iostream>
 using namespace std;
 
-class Classroom
-{
-private:
-    string className;
-    int totalStudents;
-    int presentStudents;
-    string attendanceStatus;
+int main() {
+    int n;
+    cout << "Enter number of students: ";
+    cin >> n;
 
-public:
-    Classroom(string name, int total)
-    {
-        className = name;
-        totalStudents = total;
-        presentStudents = 0;
-        attendanceStatus = "Not Completed";
+    int *ids = new int[n];
+
+    cout << "Enter student IDs:\n";
+    for (int i = 0; i < n; i++) {
+        cin >> ids[i];
     }
 
-    friend class AttendanceManager;
-};
+    int key;
+    cout << "Enter ID to search: ";
+    cin >> key;
 
-class AttendanceManager
-{
-public:
-    void displayInformation(Classroom &c)
-    {
-        cout << "Class Name: " << c.className << endl;
-        cout << "Total Students: " << c.totalStudents << endl;
-        cout << "Present Students: " << c.presentStudents << endl;
-        cout << "Attendance Status: " << c.attendanceStatus << endl;
-    }
+    int *ptr = ids;
+    int position = 1;
+    bool found = false;
 
-    void updatePresentStudents(Classroom &c, int present)
-    {
-        if (present <= c.totalStudents)
-        {
-            c.presentStudents = present;
-            cout << "Present student count updated." << endl;
+    while (ptr < ids + n) {
+        if (*ptr == key) {
+            found = true;
+            break;
         }
-        else
-        {
-            cout << "Invalid number of students." << endl;
-        }
+        ptr++;
+        position++;
     }
 
-    void markAttendanceCompleted(Classroom &c)
-    {
-        c.attendanceStatus = "Completed";
-        cout << "Attendance marked as completed." << endl;
-    }
+    if (found)
+        cout << "ID found at position " << position << endl;
+    else
+        cout << "ID not found" << endl;
 
-    void displayAttendanceStatus(Classroom &c)
-    {
-        cout << "Attendance Status: "
-             << c.attendanceStatus << endl;
-    }
-
-    void calculateAbsentStudents(Classroom &c)
-    {
-        int absentStudents =
-            c.totalStudents - c.presentStudents;
-
-        cout << "Absent Students: " << absentStudents << endl;
-    }
-};
-
-int main()
-{
-    Classroom c("CSE-b", 70);
-    AttendanceManager manager;
-
-    manager.updatePresentStudents(c, 52);
-
-    manager.markAttendanceCompleted(c);
-
-    manager.displayInformation(c);
-
-    manager.calculateAbsentStudents(c);
+    delete[] ids;
 
     return 0;
 }

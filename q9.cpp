@@ -1,82 +1,32 @@
 #include <iostream>
 using namespace std;
 
-class DigitalWallet
-{
-private:
-    string userName;
-    double walletBalance;
-    string walletStatus;
+int main() {
+    int n;
+    cout << "Enter number of parking slots: ";
+    cin >> n;
 
-public:
-    DigitalWallet(string name, double balance)
-    {
-        userName = name;
-        walletBalance = balance;
-        walletStatus = "Active";
+    int *slots = new int[n];
+
+    cout << "Enter slot status for each slot (0 for available, 1 for occupied):\n";
+    for (int i = 0; i < n; i++) {
+        cin >> slots[i];
     }
 
-    friend class WalletManager;
-};
+    int available = 0, occupied = 0;
+    int *ptr = slots;
 
-class WalletManager
-{
-public:
-    void displayWallet(DigitalWallet &w)
-    {
-        cout << "User Name: " << w.userName << endl;
-        cout << "Wallet Balance: " << w.walletBalance << endl;
-        cout << "Wallet Status: " << w.walletStatus << endl;
+    for (int i = 0; i < n; i++) {
+        if (*(ptr + i) == 0)
+            available++;
+        else if (*(ptr + i) == 1)
+            occupied++;
     }
 
-    void addMoney(DigitalWallet &w, double amount)
-    {
-        w.walletBalance += amount;
-        cout << "Money added successfully." << endl;
-    }
+    cout << "\nAvailable slots = " << available << endl;
+    cout << "Occupied slots = " << occupied << endl;
 
-    void deductMoney(DigitalWallet &w, double amount)
-    {
-        if (w.walletBalance >= amount)
-        {
-            w.walletBalance -= amount;
-            cout << "Money deducted successfully." << endl;
-        }
-        else
-        {
-            cout << "Insufficient balance." << endl;
-        }
-    }
-
-    void disableWallet(DigitalWallet &w)
-    {
-        w.walletStatus = "Disabled";
-        cout << "Wallet disabled." << endl;
-    }
-
-    void displayStatus(DigitalWallet &w)
-    {
-        cout << "Current Wallet Status: "
-             << w.walletStatus << endl;
-    }
-};
-
-int main()
-{
-    DigitalWallet wallet("Nishant", 1000);
-    WalletManager manager;
-
-    manager.displayWallet(wallet);
-
-    manager.addMoney(wallet, 500);
-
-    manager.deductMoney(wallet, 300);
-
-    manager.displayWallet(wallet);
-
-    manager.disableWallet(wallet);
-
-    manager.displayStatus(wallet);
+    delete[] slots;
 
     return 0;
 }
