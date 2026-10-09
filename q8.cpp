@@ -1,27 +1,42 @@
 #include <iostream>
 using namespace std;
 
-void increaseScores(int *scores, int n) {
-    for (int i = 0; i < n; i++) {
-        *(scores + i) = *(scores + i) + 10;
+class Temperature {
+    double celsius;
+
+public:
+    Temperature(double c) {
+        celsius = c;
     }
-}
+
+    bool operator>(Temperature t) {
+        return celsius > t.celsius;
+    }
+
+    bool operator<(Temperature t) {
+        return celsius < t.celsius;
+    }
+
+    Temperature operator-() {
+        return Temperature(-celsius);
+    }
+
+    void display() {
+        cout << celsius << " Celsius" << endl;
+    }
+};
 
 int main() {
-    int scores[] = {50, 60, 70, 80, 90};
-    int n = sizeof(scores) / sizeof(scores[0]);
+    Temperature t1(35), t2(20);
 
-    cout << "Scores before adjustment:\n";
-    for (int i = 0; i < n; i++) {
-        cout << scores[i] << " ";
-    }
+    cout << boolalpha;
+    cout << "t1 > t2: " << (t1 > t2) << endl;
+    cout << "t1 < t2: " << (t1 < t2) << endl;
 
-    increaseScores(scores, n);
+    Temperature t3 = -t1;
 
-    cout << "\nScores after adjustment:\n";
-    for (int i = 0; i < n; i++) {
-        cout << scores[i] << " ";
-    }
+    cout << "Negated temperature: ";
+    t3.display();
 
     return 0;
 }

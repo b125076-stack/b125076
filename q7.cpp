@@ -1,26 +1,48 @@
 #include <iostream>
 using namespace std;
 
-int main() {
-    char sentence[] = "OOPs lab work";
-    char *ptr = sentence;
+class InventoryItem {
+    int id, quantity;
+    double price;
 
-    int upper = 0, lower = 0, spaces = 0;
-
-    while (*ptr != '\0') {
-        if (*ptr >= 'A' && *ptr <= 'Z')
-            upper++;
-        else if (*ptr >= 'a' && *ptr <= 'z')
-            lower++;
-        else if (*ptr == ' ')
-            spaces++;
-
-        ptr++;
+public:
+    InventoryItem(int i, double p, int q) {
+        id = i;
+        price = p;
+        quantity = q;
     }
 
-    cout << "Uppercase letters: " << upper << endl;
-    cout << "Lowercase letters: " << lower << endl;
-    cout << "Spaces: " << spaces << endl;
+    InventoryItem operator+(InventoryItem item) {
+        if (id != item.id || price != item.price) {
+            cout << "Incompatible inventory items!" << endl;
+            return *this;
+        }
+
+        return InventoryItem(id, price,
+                             quantity + item.quantity);
+    }
+
+    void display() {
+        cout << "Product ID: " << id
+             << ", Price: " << price
+             << ", Quantity: " << quantity << endl;
+    }
+};
+
+int main() {
+    InventoryItem a(101, 50, 10);
+    InventoryItem b(101, 50, 20);
+
+    InventoryItem c = a + b;
+
+    cout << "First item: ";
+    a.display();
+
+    cout << "Second item: ";
+    b.display();
+
+    cout << "Combined item: ";
+    c.display();
 
     return 0;
 }

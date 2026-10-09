@@ -1,41 +1,50 @@
 #include <iostream>
 using namespace std;
 
+class Bill {
+    int items;
+    double amount;
+
+public:
+    Bill(int i = 0, double a = 0) {
+        items = i;
+        amount = a;
+    }
+
+    Bill operator+(Bill b) {
+        return Bill(items + b.items,
+                    amount + b.amount);
+    }
+
+    bool operator>(Bill b) {
+        return amount > b.amount;
+    }
+
+    void display() {
+        cout << "Items: " << items
+             << ", Total amount: Rs. "
+             << amount << endl;
+    }
+};
+
 int main() {
-    int n;
-    cout << "Enter number of students: ";
-    cin >> n;
+    Bill b1(3, 500), b2(5, 800);
 
-    int *ids = new int[n];
+    Bill b3 = b1 + b2;
 
-    cout << "Enter student IDs:\n";
-    for (int i = 0; i < n; i++) {
-        cin >> ids[i];
-    }
+    cout << "First bill: ";
+    b1.display();
 
-    int key;
-    cout << "Enter ID to search: ";
-    cin >> key;
+    cout << "Second bill: ";
+    b2.display();
 
-    int *ptr = ids;
-    int position = 1;
-    bool found = false;
+    cout << "Combined bill: ";
+    b3.display();
 
-    while (ptr < ids + n) {
-        if (*ptr == key) {
-            found = true;
-            break;
-        }
-        ptr++;
-        position++;
-    }
-
-    if (found)
-        cout << "ID found at position " << position << endl;
+    if (b1 > b2)
+        cout << "First bill has a higher amount" << endl;
     else
-        cout << "ID not found" << endl;
-
-    delete[] ids;
+        cout << "First bill does not have a higher amount" << endl;
 
     return 0;
 }

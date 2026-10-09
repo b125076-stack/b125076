@@ -1,23 +1,35 @@
 #include <iostream>
 using namespace std;
 
-void findHighestPrice(float *price, int n) {
-    float highest = *price;
+class Date {
+    int day, month, year;
 
-    for (int i = 1; i < n; i++) {
-        price++;
-        if (*price > highest) {
-            highest = *price;
-        }
+public:
+    Date(int d, int m, int y) {
+        day = d;
+        month = m;
+        year = y;
     }
 
-    cout << "Highest price: " << highest << endl;
-}
+    bool operator==(Date d) {
+        return day == d.day &&
+               month == d.month &&
+               year == d.year;
+    }
+
+    bool operator!=(Date d) {
+        return !(*this == d);
+    }
+};
 
 int main() {
-    float prices[7] = {45.5, 120.0, 89.99, 150.75, 60.25, 99.5, 130.0};
+    Date d1(9, 10, 2026);
+    Date d2(9, 10, 2026);
+    Date d3(10, 10, 2026);
 
-    findHighestPrice(prices, 7);
+    cout << boolalpha;
+    cout << "d1 == d2: " << (d1 == d2) << endl;
+    cout << "d1 != d3: " << (d1 != d3) << endl;
 
     return 0;
 }

@@ -1,36 +1,33 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
-int main(){
-    int seats[6] ={101 , 102 ,103, 104 ,105 ,106};
-    int *ptr = seats;
-    int position, newseatnumber; 
 
-    cout<<" seat number before update :\n";
-    for(int i=0; i<7;i++){
-        cout<< *(ptr + i)<<" ";
+class AccountBalance {
+    double balance;
 
+public:
+    AccountBalance(double b) {
+        balance = b;
     }
-    cout<<"\n \n enter the position to update :";
-    cin>>position;
 
-    cout<<" Enter the new seat : ";
-    cin>> newseatnumber;
-
-    if(position>=1 && position<=6){
-        *(ptr+(position-1))= newseatnumber;
-
-
-    }else{
-        cout<<" invalid position : "<<endl;
-        return 0;
-
+    AccountBalance operator-() {
+        return AccountBalance(-balance);
     }
-    cout<<" \n no of seats after updation :\n";
-    
-    for(int i=0;i<7;i++){
-        cout<<*(ptr+i)<< " ";
 
+    void display() {
+        cout << "Balance: " << balance << endl;
     }
+};
+
+int main() {
+    AccountBalance a1(5000);
+
+    AccountBalance a2 = -a1;
+
+    cout << "Original account: ";
+    a1.display();
+
+    cout << "Negated account: ";
+    a2.display();
+
     return 0;
-
 }

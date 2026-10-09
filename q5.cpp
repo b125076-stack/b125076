@@ -1,22 +1,46 @@
 #include <iostream>
 using namespace std;
 
-void updateVisitors(int *count) {
-    int newVisitors;
-    cout << "Enter number of newly arrived visitors: ";
-    cin >> newVisitors;
+class Score {
+    int value;
 
-    *count = *count + newVisitors;
-}
+public:
+    Score(int v = 0) {
+        value = v;
+    }
+
+    Score operator++() {
+        ++value;
+        return *this;
+    }
+
+    Score operator++(int) {
+        Score temp = *this;
+        value++;
+        return temp;
+    }
+
+    void display() {
+        cout << value << endl;
+    }
+};
 
 int main() {
-    int visitors = 46;
+    Score s1(10), s2;
 
-    cout << "Visitor count before update: " << visitors << endl;
+    s2 = ++s1;
+    cout << "Prefix result: ";
+    s2.display();
 
-    updateVisitors(&visitors);
+    cout << "Current score: ";
+    s1.display();
 
-    cout << "Visitor count after update: " << visitors << endl;
+    s2 = s1++;
+    cout << "Postfix result: ";
+    s2.display();
+
+    cout << "Current score: ";
+    s1.display();
 
     return 0;
 }

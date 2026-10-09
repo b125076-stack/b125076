@@ -1,32 +1,55 @@
 #include <iostream>
 using namespace std;
 
+class Matrix {
+    int a[2][2];
+
+public:
+    void input() {
+        for (int i = 0; i < 2; i++)
+            for (int j = 0; j < 2; j++)
+                cin >> a[i][j];
+    }
+
+    Matrix operator+(Matrix m) {
+        Matrix result;
+
+        for (int i = 0; i < 2; i++)
+            for (int j = 0; j < 2; j++)
+                result.a[i][j] = a[i][j] + m.a[i][j];
+
+        return result;
+    }
+
+    void display() {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++)
+                cout << a[i][j] << " ";
+
+            cout << endl;
+        }
+    }
+};
+
 int main() {
-    int n;
-    cout << "Enter number of parking slots: ";
-    cin >> n;
+    Matrix A, B, C;
 
-    int *slots = new int[n];
+    cout << "Enter Matrix A (4 elements):\n";
+    A.input();
 
-    cout << "Enter slot status for each slot (0 for available, 1 for occupied):\n";
-    for (int i = 0; i < n; i++) {
-        cin >> slots[i];
-    }
+    cout << "Enter Matrix B (4 elements):\n";
+    B.input();
 
-    int available = 0, occupied = 0;
-    int *ptr = slots;
+    C = A + B;
 
-    for (int i = 0; i < n; i++) {
-        if (*(ptr + i) == 0)
-            available++;
-        else if (*(ptr + i) == 1)
-            occupied++;
-    }
+    cout << "Matrix A:\n";
+    A.display();
 
-    cout << "\nAvailable slots = " << available << endl;
-    cout << "Occupied slots = " << occupied << endl;
+    cout << "Matrix B:\n";
+    B.display();
 
-    delete[] slots;
+    cout << "Resultant Matrix:\n";
+    C.display();
 
     return 0;
 }

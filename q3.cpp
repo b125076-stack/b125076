@@ -1,17 +1,40 @@
-#include<iostream>
+#include <iostream>
+#include <string>
 using namespace std;
-int main(){
-    int book[5]={ 10,30,40 ,50,60};
-    int*ptr = book;
 
-    cout<<" Book id and their address " ;
+class Book {
+    string title;
+    double price;
 
-    for(int i=1; i<=5; i++){
-        cout<<" book ids "<<*ptr <<endl;
-        cout<<" book adress "<<book<<endl;
-       *ptr++;
-
+public:
+    Book(string t, double p) {
+        title = t;
+        price = p;
     }
-    return 0;
 
+    bool operator<(Book b) {
+        if (price == b.price)
+            return title < b.title;
+
+        return price < b.price;
+    }
+
+    void display() {
+        cout << title << " - Rs. " << price << endl;
+    }
+};
+
+int main() {
+    Book b1("C++ Programming", 300);
+    Book b2("Data Structures", 400);
+
+    b1.display();
+    b2.display();
+
+    if (b1 < b2)
+        cout << "First book is smaller" << endl;
+    else
+        cout << "First book is not smaller" << endl;
+
+    return 0;
 }
